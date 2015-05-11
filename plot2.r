@@ -1,0 +1,8 @@
+setwd("/Users/kailiu/Box Sync/Data_Science/Exploratory_Data_Analysis/ExData_Plotting1")
+Power <- read.csv("household_power_consumption.txt", header=T, sep = ";", stringsAsFactors = F)
+Power$Date2 <- as.Date(as.character(Power$Date), format = "%d/%m/%Y")
+newdata <- subset(Power, Date2 == as.Date("2007-02-02") | Date2 == as.Date("2007-02-01"), select = c(Date, Time, Global_active_power))
+newdata$DateTime <- strptime(paste(newdata$Date, newdata$Time), "%d/%m/%Y %H:%M:%S")
+plot(newdata$DateTime, newdata$Global_active_power, type = "l", ylab = "Global Active Power (kilowatts)", xlab = "")
+dev.copy(png, file = "plot2.png")
+dev.off()
